@@ -1,8 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import json
 from pathlib import Path
+from typing import Optional
 from services.gemini_agent import analyze_fighter
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
 
 app = FastAPI()
 
@@ -26,8 +32,15 @@ else:
 def root():
     return {"message": "AI Fighter Matchup backend running!"}
 
+@app.post("/api/login")
+async def login(credentials: LoginRequest):
+    # For demo purposes - you should implement proper authentication
+    if credentials.username and credentials.password:
+        return {"message": "Login successful"}
+    raise HTTPException(status_code=401, detail="Invalid credentials")
+
 @app.get("/api/fighter/{name}")
-def get_fighter(name: str, game: str | None = None):
+def get_fighter(name: str, game: Optional[str] = None):
     # Try mock data first
     fighter = matchups.get(name)
     if fighter:

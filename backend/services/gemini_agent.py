@@ -1,7 +1,7 @@
 # backend/services/gemini_agent.py
 import os, json, re
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from dotenv import load_dotenv
 import google.generativeai as genai
 
@@ -48,7 +48,7 @@ def _parse_json(text: str) -> Dict[str, Any]:
     data["victims"]  = data["victims"][:5]
     return data
 
-def analyze_fighter(fighter: str, game: str | None = None) -> Dict[str, Any]:
+def analyze_fighter(fighter: str, game: Optional[str] = None) -> Dict[str, Any]:
     user = f"Character: {fighter}\nGame/Franchise: {game or 'unspecified'}"
     resp = _MODEL.generate_content([_SCHEMA_PROMPT, user])
     return _parse_json(resp.text)
