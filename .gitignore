@@ -1,21 +1,82 @@
-# Python
+# =====================
+# PYTHON BACKEND
+# =====================
+
+# Byte-compiled / cache
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
-*.db
-*.sqlite3
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
 
-# Virtual environment
+# Virtual environments
 venv/
-backend/venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables
 .env
 *.env
+backend/.env
 
-# Node
+# Logs and debug
+*.log
+
+# Databases
+*.sqlite3
+*.db
+
+# =====================
+# NODE / REACT FRONTEND
+# =====================
+
 node_modules/
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+coverage/
+build/
+dist/
 
-# MacOS
+# Local environment overrides
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =====================
+# IDE / OS / TOOLING
+# =====================
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+.history/
+*.code-workspace
+
+# =====================
+# GIT / CI CONFIG
+# =====================
+
+# Ignore GitHub Actions or CI setup if not needed
+.github/
+.gitlab/
