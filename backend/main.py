@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from pathlib import Path
+from services.gemini_agent import analyze_fighter
 
 app = FastAPI()
 
@@ -26,8 +27,15 @@ def root():
     return {"message": "AI Fighter Matchup backend running!"}
 
 @app.get("/api/fighter/{name}")
-def get_fighter(name: str):
+def get_fighter(name: str, game: str | None = None):
+    # Try mock data first
     fighter = matchups.get(name)
     if fighter:
         return {"fighter": name, "source": "mock", **fighter}
-    return {"error": "Fighter not found"}
+    
+    # If no mock data, use Gemini
+    try:
+        analysis = analyze_fighter(name, game)
+        return {"source": "gemini", **analysis}
+    except Exception as e:
+        return {"error": f"Analysis failed: {str(e)}"}
