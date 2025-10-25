@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from pathlib import Path
 from pydantic import BaseModel, EmailStr
+from typing import List
 
 app = FastAPI()
 
@@ -16,6 +17,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+class User(BaseModel):
+    email: EmailStr
+    password: str
+
 
 # Load mock matchup data
 DATA_PATH = Path(__file__).parent / "data" / "mock_matchups.json"
@@ -35,11 +41,11 @@ else:
 def root():
     return {"message": "AI Fighter Matchup backend running!"}
 
-@app.get("/api/fighter")
-def show_fighters(name: str):
-    return{"fighter": name, "source": "mock",json}
+@app.get("/home/login")
+def login():
+    return{"login page working!"}
 
-@app.get("/api/fighter/{name}")
+@app.get("/home/matchup/{name}")
 def get_fighter(name: str):
 
     #Converts inputted name to have proper captilization
