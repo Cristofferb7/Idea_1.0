@@ -1,10 +1,10 @@
 {
-  "RYU": {
+  "Ryu": {
     "best": ["Ken", "Cammy", "Nash"],
     "worst": ["Dhalsim", "Zangief", "Guile"],
     "summary": "Ryu dominates close combat but struggles against long-range zoning characters."
   },
-  "JIN": {
+  "Jin": {
     "best": ["Paul", "Hwoarang", "King"],
     "worst": ["Lars", "Steve", "Alisa"],
     "summary": "Strong mid-range control, weak against fast pressure fighters."

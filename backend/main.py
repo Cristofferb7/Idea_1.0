@@ -24,19 +24,39 @@ if DATA_PATH.exists():
 else:
     matchups = {}
 
+#Load test file
+DATA_PATH = Path(__file__).parent / "data" / "test.json"
+if DATA_PATH.exists():
+    test_matchups = json.loads(DATA_PATH.read_text())
+else:
+    test_matchups = {}
+
 @app.get("/")
 def root():
     return {"message": "AI Fighter Matchup backend running!"}
 
-#@app.get("/api/fighter/test/{name}")
-#def test_json(name: str):
-    #json=matchups.get(name.upper)
-    #return{"fighter": name, "source": "mock",json}
+@app.get("/api/fighter")
+def show_fighters(name: str):
+    return{"fighter": name, "source": "mock",json}
 
 @app.get("/api/fighter/{name}")
 def get_fighter(name: str):
-    fighter = matchups.get(name.upper())
+
+    #Converts inputted name to have proper captilization
+    name=name.lower()
+    name=name.title()
+    
+    fighter = test_matchups.get(name)
+    fighter_list=fighter["matchups"]
+    End=len(fighter_list)
+    worst_matchup=fighter_list[End-3:End]
     if fighter:
-        return {"fighter": name, "source": "mock", **fighter}
-    return {"error": "Fighter not found" } 
+        return {"fighter": name, 
+                "matchups": fighter_list,
+                "best": fighter_list[0:3],
+                "worst":worst_matchup[::-1],
+                "summary":fighter["summary"]
+                }
+    else:
+        return {"error": "Fighter not found" } 
 
