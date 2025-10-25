@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual environment
+venv/
+backend/venv/
+.env
+*.env
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# MacOS
+.DS_Store
