@@ -1,8 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import json
 from pathlib import Path
-from pydantic import BaseModel, EmailStr
+from typing import Optional
+from services.gemini_agent import analyze_fighter
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
 
 app = FastAPI()
 
@@ -35,28 +41,23 @@ else:
 def root():
     return {"message": "AI Fighter Matchup backend running!"}
 
-@app.get("/api/fighter")
-def show_fighters(name: str):
-    return{"fighter": name, "source": "mock",json}
+@app.post("/api/login")
+async def login(credentials: LoginRequest):
+    # For demo purposes - you should implement proper authentication
+    if credentials.username and credentials.password:
+        return {"message": "Login successful"}
+    raise HTTPException(status_code=401, detail="Invalid credentials")
 
 @app.get("/api/fighter/{name}")
-def get_fighter(name: str):
-
-    #Converts inputted name to have proper captilization
-    name=name.lower()
-    name=name.title()
-    
-    fighter = test_matchups.get(name)
-    fighter_list=fighter["matchups"]
-    End=len(fighter_list)
-    worst_matchup=fighter_list[End-3:End]
+def get_fighter(name: str, game: Optional[str] = None):
+    # Try mock data first
+    fighter = matchups.get(name)
     if fighter:
-        return {"fighter": name, 
-                "matchups": fighter_list,
-                "best": fighter_list[0:3],
-                "worst":worst_matchup[::-1],
-                "summary":fighter["summary"]
-                }
-    else:
-        return {"error": "Fighter not found" } 
-
+        return {"fighter": name, "source": "mock", **fighter}
+    
+    # If no mock data, use Gemini
+    try:
+        analysis = analyze_fighter(name, game)
+        return {"source": "gemini", **analysis}
+    except Exception as e:
+        return {"error": f"Analysis failed: {str(e)}"}
