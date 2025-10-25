@@ -12,6 +12,8 @@ class LoginRequest(BaseModel):
 
 app = FastAPI()
 
+
+
 # Allow frontend (React) requests
 app.add_middleware(
     CORSMiddleware,
@@ -27,6 +29,13 @@ if DATA_PATH.exists():
     matchups = json.loads(DATA_PATH.read_text())
 else:
     matchups = {}
+
+#Load test file
+DATA_PATH = Path(__file__).parent / "data" / "test.json"
+if DATA_PATH.exists():
+    test_matchups = json.loads(DATA_PATH.read_text())
+else:
+    test_matchups = {}
 
 @app.get("/")
 def root():
