@@ -20,7 +20,7 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 # Send a prompt to Gemini and get the response
-resp = model.generate_content("Say hello from Gemini AI!")
+resp = model.generate_content("Search for RYU counters and give me the summary of why it counters them")
 
 # Print the AI's response to the console
 print(resp.text)
