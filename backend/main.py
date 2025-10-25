@@ -2,8 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from pathlib import Path
+from pydantic import BaseModel, EmailStr
 
 app = FastAPI()
+
+
 
 # Allow frontend (React) requests
 app.add_middleware(
@@ -25,9 +28,15 @@ else:
 def root():
     return {"message": "AI Fighter Matchup backend running!"}
 
+#@app.get("/api/fighter/test/{name}")
+#def test_json(name: str):
+    #json=matchups.get(name.upper)
+    #return{"fighter": name, "source": "mock",json}
+
 @app.get("/api/fighter/{name}")
 def get_fighter(name: str):
-    fighter = matchups.get(name)
+    fighter = matchups.get(name.upper())
     if fighter:
         return {"fighter": name, "source": "mock", **fighter}
-    return {"error": "Fighter not found"}
+    return {"error": "Fighter not found" } 
+
