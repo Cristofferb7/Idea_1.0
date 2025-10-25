@@ -8,3 +8,4 @@ ethan:
 5. AI fighter matchup:
 The AI will get a picture of a fighting game character, and search the web to find the character’s best and worst match up.
 hhh
+try another push
