@@ -1,4 +1,17 @@
-.App{
-  text-align: center; margin: auto;
+@font-face {
+  font-family:ArcadeClassic;
+  src: url(C:\Users\ethan\Downloads\arcade-classic.zip);
+}
+.App {
+  text-align: center margin auto;
   
+  
+}
+
+body{
+  background-color:blueviolet;
+ 
+}
+.Heading {
+  font-family: ArcadeClassic, sans-serif;
 }
