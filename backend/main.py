@@ -1,9 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import json
 from pathlib import Path
-from pydantic import BaseModel, EmailStr
-from typing import List
+from typing import Optional
+from services.gemini_agent import analyze_fighter
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
 
 app = FastAPI()
 
@@ -17,11 +22,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-class User(BaseModel):
-    email: EmailStr
-    password: str
-
 
 # Load mock matchup data
 DATA_PATH = Path(__file__).parent / "data" / "mock_matchups.json"
@@ -41,28 +41,23 @@ else:
 def root():
     return {"message": "AI Fighter Matchup backend running!"}
 
-@app.get("/home/login")
-def login():
-    return{"login page working!"}
+@app.post("/api/login")
+async def login(credentials: LoginRequest):
+    # For demo purposes - you should implement proper authentication
+    if credentials.username and credentials.password:
+        return {"message": "Login successful"}
+    raise HTTPException(status_code=401, detail="Invalid credentials")
 
-@app.get("/home/matchup/{name}")
-def get_fighter(name: str):
-
-    #Converts inputted name to have proper captilization
-    name=name.lower()
-    name=name.title()
-    
-    fighter = test_matchups.get(name)
-    fighter_list=fighter["matchups"]
-    End=len(fighter_list)
-    worst_matchup=fighter_list[End-3:End]
+@app.get("/api/fighter/{name}")
+def get_fighter(name: str, game: Optional[str] = None):
+    # Try mock data first
+    fighter = matchups.get(name)
     if fighter:
-        return {"fighter": name, 
-                "matchups": fighter_list,
-                "best": fighter_list[0:3],
-                "worst":worst_matchup[::-1],
-                "summary":fighter["summary"]
-                }
-    else:
-        return {"error": "Fighter not found" } 
-
+        return {"fighter": name, "source": "mock", **fighter}
+    
+    # If no mock data, use Gemini
+    try:
+        analysis = analyze_fighter(name, game)
+        return {"source": "gemini", **analysis}
+    except Exception as e:
+        return {"error": f"Analysis failed: {str(e)}"}

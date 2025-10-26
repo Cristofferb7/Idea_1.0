@@ -103,8 +103,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 - Contributors:
-    -[Cristoffer Bohorquez](https://github.com/Cristofferb7)
-    -[Nathan Josue](https://github.com/PresJosue)
-    -[Ethan Fu](https://github.com/yaboi332)
-    -[Valduarri Reid](https://github.com/valdaurriR)
+   - [Cristoffer Bohorquez](https://github.com/Cristofferb7)
+   - [Nathan Josue](https://github.com/PresJosue)
+   - [Ethan Fu](https://github.com/yaboi332)
+   - [Valduarri Reid](https://github.com/valdaurriR)
 - Repository: https://github.com/Cristofferb7/ai_fighter_matchup
