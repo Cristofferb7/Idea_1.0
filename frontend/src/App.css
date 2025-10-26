@@ -2,37 +2,129 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.login-container,
+.fighter-analysis {
+  background-color: #3b4252;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin-top: 2rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #4c566a;
+  border-radius: 4px;
+  background-color: #434c5e;
+  color: white;
+}
+
+button {
+  background-color: #5e81ac;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #81a1c1;
+}
+
+button:disabled {
+  background-color: #4c566a;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  background-color: #4c566a;
+}
+
+.analysis-result {
+  margin-top: 2rem;
+  text-align: left;
+  background-color: #434c5e;
+  padding: 1.5rem;
+  border-radius: 4px;
+}
+
+.analysis-result h3 {
+  color: #88c0d0;
+  margin-top: 0;
+}
+
+.analysis-result h4 {
+  color: #81a1c1;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.analysis-result ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.analysis-result li {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.analysis-result strong {
+  color: #88c0d0;
+}
+
+.counters, .victims {
+  margin-top: 1.5rem;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #88c0d0;
+  margin-top: 10px;
+  font-size: 1.1rem;
 }
